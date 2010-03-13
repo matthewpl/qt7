@@ -3,8 +3,7 @@
 #include <QtNetwork>
 #include <QtGui>
 
-Widget::Widget(QWidget *parent)
-	: QWidget(parent)
+Widget::Widget(QWidget *parent) : QWidget(parent)
 {
 	tcpServer = new QTcpServer(this);
 	connect(tcpServer, SIGNAL(newConnection()), this, SLOT(addClient()));

@@ -72,7 +72,6 @@ void MainWindow::showConnectWindow()
 void MainWindow::sendMessage()
 {
 	chat->append(nick + ": " + messageLine->text());
-	messageLine->clear();
 
 	QByteArray data;
 	QDataStream out(&data, QIODevice::WriteOnly);
@@ -89,6 +88,8 @@ void MainWindow::sendMessage()
 	out << (quint16) (data.size() - sizeof(quint16));
 
 	tcpSocket->write(data);
+
+	messageLine->clear();
 }
 
 void MainWindow::readData()
@@ -102,9 +103,9 @@ void MainWindow::readData()
 		{
 			return;
 		}
-	}
 
-	in >> blockSize;
+		in >> blockSize;
+	}
 
 	if (tcpSocket->bytesAvailable() < blockSize)
 	{
